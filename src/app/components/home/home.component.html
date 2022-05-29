@@ -1,0 +1,66 @@
+<header>
+  <h1>Currency Converter</h1>
+</header>
+<div class="container">
+  <form (ngSubmit)="onSubmit()" #currencyForm="ngForm">
+    <div class="input-currency">
+      <label for="inputSymbol">From</label>
+
+      <select
+        name="inputSymbol"
+        id="inputSymbol"
+        [(ngModel)]="defaultFromCurrency"
+      >
+        <option
+          *ngFor="let currency of currencies"
+          value="{{ currency.symbol }}"
+        >
+          {{ currency.symbol }}
+        </option>
+      </select>
+    </div>
+    <div class="input-currency">
+      <label for="outputSymbol">To</label>
+
+      <select
+        name="outputSymbol"
+        id="outputSymbol"
+        [(ngModel)]="defaultToCurrency"
+      >
+        <option
+          *ngFor="let currency of currencies"
+          value="{{ currency.symbol }}"
+        >
+          {{ currency.symbol }}
+        </option>
+      </select>
+    </div>
+    <div>
+      <input
+        type="text"
+        name="inputAmount"
+        placeholder="Enter value"
+        ngModel
+        class="amount-input"
+        #inputAmount="ngModel"
+        required
+      />
+      <!--  (input)="
+          inputAmount.value.length > 0 && onInputChange(inputAmount.value)
+        " -->
+      <small class="input-currency-small" *ngIf="defaultFromCurrency">{{
+        defaultFromCurrency
+      }}</small>
+    </div>
+    <div class="output">
+      <p>
+        {{ outputAmount ? outputAmount : "-" }}
+        <small *ngIf="defaultToCurrency">{{ defaultToCurrency }}</small>
+      </p>
+    </div>
+
+    <button type="submit" [disabled]="!currencyForm.valid">
+      Convert
+    </button>
+  </form>
+</div>
